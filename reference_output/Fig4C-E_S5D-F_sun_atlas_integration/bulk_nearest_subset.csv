@@ -1,0 +1,9 @@
+"sample","group","best_subset","best_rho"
+"MHCpos_1","MHCpos","Inflammatory-Immune",0.686
+"MHCpos_2","MHCpos","Inflammatory-Immune",0.692
+"MHCpos_3","MHCpos","Inflammatory-Immune",0.684
+"MHCpos_4","MHCpos","Inflammatory-Immune",0.703
+"MHCneg_1","MHCneg","Active-Cycling",0.688
+"MHCneg_2","MHCneg","Active-Cycling",0.692
+"MHCneg_3","MHCneg","Inflammatory-Immune",0.728
+"MHCneg_4","MHCneg","Inflammatory-Immune",0.729
