@@ -32,7 +32,7 @@ results/       outputs written by the scripts, not tracked in git
 ## Quick start
 
 ```bash
-git clone https://github.com/<your-username>/Camacho-MHCII-MK-2026.git
+git clone https://github.com/mbassalbioinformatics/Camacho-MHCII-MK-2026.git
 cd Camacho-MHCII-MK-2026
 # place the input files in data/ (see data/README.md)
 Rscript figures/Fig4C/Fig4C_bulk_vs_sun_atlas.R
