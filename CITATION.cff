@@ -1,0 +1,55 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the article and this software archive."
+title: "Camacho-MHCII-MK-2026: analysis code for 'MHC II-expressing bone marrow megakaryocytes are noncanonical antigen presenting cells and activate CD4+ T cells ex vivo'"
+type: software
+authors:
+  - given-names: Virginia
+    family-names: Camacho
+  - given-names: Karen G.
+    family-names: Wang
+  - given-names: Pavel
+    family-names: Hanč
+  - given-names: Estelle
+    family-names: Carminita
+  - given-names: Isabelle C.
+    family-names: Becker
+  - given-names: Dong H.
+    family-names: Lee
+  - given-names: Mahmoud A.
+    family-names: Bassal
+  - given-names: Marcelo
+    family-names: Falchetti
+  - given-names: Jaxaira
+    family-names: Maggi
+  - given-names: Maria
+    family-names: Barrachina
+  - given-names: Ulrich
+    name-particle: von
+    family-names: Andrian
+  - given-names: Montserrat
+    family-names: Carrascal
+  - given-names: Deepa
+    family-names: Gautam
+  - given-names: Chen
+    family-names: Weng
+  - given-names: Vijay G.
+    family-names: Sankaran
+  - given-names: Joseph E.
+    family-names: Italiano
+  - given-names: Kellie R.
+    family-names: Machlus
+version: 1.0.0
+license: MIT
+repository-code: "https://github.com/mbassalbioinformatics/Camacho-MHCII-MK-2026"
+keywords:
+  - megakaryocyte
+  - MHC class II
+  - antigen presentation
+  - bone marrow
+  - bulk RNA-seq
+  - single-cell RNA-seq
+abstract: >-
+  Analysis code for the bulk RNA-seq of sorted MHC II+ and MHC II- bone marrow
+  megakaryocytes: differential expression, Gene Ontology enrichment,
+  transcription factor activity, and integration with the Sun et al. (2021)
+  single-cell megakaryocyte atlas (Fig 4A to 4E and Fig S5A to S5F).

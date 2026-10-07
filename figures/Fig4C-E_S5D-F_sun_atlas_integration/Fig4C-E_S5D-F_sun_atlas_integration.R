@@ -1,6 +1,13 @@
 ###############################################################################
-## Figure 4C: MHC II+ / MHC II- megakaryocyte bulk RNA-seq
+## Fig 4C-E and Fig S5D-F: MHC II+ / MHC II- megakaryocyte bulk RNA-seq
 ## integrated with the Sun et al. (2021) single-cell MK atlas
+##
+##   Fig 4C   unified panel across the reference subset pseudobulks
+##   Fig 4D   unified panel across the bulk MHC II+ and MHC II- samples
+##   Fig 4E   Spearman correlation of each bulk replicate to each subset
+##   Fig S5D  validation control (subset pseudo-replicates)
+##   Fig S5E  MHC II+ / MHC II- signature scores by subset
+##   Fig S5F  the same scores on the reference UMAP
 ##
 ## Steps
 ##   1. Annotate the four reference MK subsets (fixed cluster map + marker QC)
@@ -12,8 +19,10 @@
 ##   7. MHC II+ / MHC II- signature scores across reference cells
 ##   8. Validation control: subset pseudo-replicates through step 6
 ##
-## Run from the repository root:  Rscript figures/Fig4C/Fig4C_bulk_vs_sun_atlas.R
-## Inputs are described in data/README.md. Outputs are written to results/Fig4C/.
+## Run from the repository root, after the Fig 4A/S5A script (it writes the DE table):
+##   Rscript figures/Fig4C-E_S5D-F_sun_atlas_integration/Fig4C-E_S5D-F_sun_atlas_integration.R
+## Inputs are described in data/README.md. Outputs are written to
+## results/Fig4C-E_S5D-F_sun_atlas_integration/.
 ###############################################################################
 
 ## ---------------------------------------------------------------------------
@@ -23,8 +32,8 @@
 ## ---------------------------------------------------------------------------
 SC_RDS      <- Sys.getenv("MK_SC_RDS",      "data/mouse_mk.rds")
 BULK_COUNTS <- Sys.getenv("MK_BULK_COUNTS", "data/counts_matrix.tsv")
-DE_TABLE    <- Sys.getenv("MK_DE_TABLE",    "data/DE_genes_sig.tsv")
-OUTDIR      <- Sys.getenv("MK_OUTDIR",      "results/Fig4C")
+DE_TABLE    <- Sys.getenv("MK_DE_TABLE",    "results/Fig4A_S5A_differential_expression/DE_genes_sig.tsv")
+OUTDIR      <- Sys.getenv("MK_OUTDIR",      "results/Fig4C-E_S5D-F_sun_atlas_integration")
 
 CLUSTER_COL   <- "RNA_snn_res.0.1"   # clustering that defines the 4 subsets
 N_PSEUDOREP   <- 3                   # pseudo-replicates per subset
@@ -34,7 +43,7 @@ SEED          <- 13579               # seed used for the reported results
 EXPORT_TIFF   <- FALSE               # TRUE also writes 300 dpi TIFFs
 
 ## Cluster-to-subset map, fixed from per-cluster marker expression
-## (written to results/Fig4C/qc_cluster_marker_means.csv on every run):
+## (written to qc_cluster_marker_means.csv in the output folder on every run):
 ##   0  Top2a / Birc5 high, Cxcl12 absent     -> Active-Cycling
 ##   1  Cxcl12 / Mpl high                     -> HSC-Niche
 ##   2  H2-Ab1 / Cd74 / Irf7 high             -> Inflammatory-Immune
@@ -62,7 +71,12 @@ suppressPackageStartupMessages({
   library(tidyr)
 })
 
-for (f in c(SC_RDS, BULK_COUNTS, DE_TABLE)) {
+if (!file.exists(DE_TABLE)) {
+  stop("DE table not found: ", DE_TABLE,
+       "\nRun figures/Fig4A_S5A_differential_expression/Fig4A_S5A_differential_expression.R first,",
+       "\nor set MK_DE_TABLE to an existing DE_genes_sig.tsv.")
+}
+for (f in c(SC_RDS, BULK_COUNTS)) {
   if (!file.exists(f)) stop("Input not found: ", f, "\nSee data/README.md.")
 }
 dir.create(OUTDIR, showWarnings = FALSE, recursive = TRUE)
@@ -236,7 +250,7 @@ ann_row  <- data.frame(Category = gene_cat, row.names = panel_genes)
 div_pal  <- colorRampPalette(rev(brewer.pal(11, "RdBu")))(100)
 
 heatmap_out(zrow(pb_lcpm[panel_genes, ])[, order(pb_meta$subset)],
-            "pseudobulk_panel_heatmap", width = 7, height = 9,
+            "Fig4C_pseudobulk_panel_heatmap", width = 7, height = 9,
             cluster_cols = FALSE, cluster_rows = TRUE,
             annotation_col = ann_pb, annotation_row = ann_row,
             annotation_colors = ann_colors, color = div_pal,
@@ -244,7 +258,7 @@ heatmap_out(zrow(pb_lcpm[panel_genes, ])[, order(pb_meta$subset)],
             main = "Sun et al. pseudobulk, unified panel (row z-score)")
 
 heatmap_out(zrow(bulk_lcpm[panel_genes, ])[, order(bulk_group)],
-            "bulk_panel_heatmap", width = 5.5, height = 9,
+            "Fig4D_bulk_panel_heatmap", width = 5.5, height = 9,
             cluster_cols = FALSE, cluster_rows = TRUE,
             annotation_col = ann_bulk, annotation_row = ann_row,
             annotation_colors = ann_colors, color = div_pal,
@@ -264,7 +278,7 @@ message(sprintf("Correlation over %d shared HVGs", length(hvg)))
 cor_mat <- cor(bulk_lcpm[hvg, ], pb_subset_lcpm[hvg, ], method = "spearman")
 write.csv(cor_mat, file.path(OUTDIR, "bulk_vs_subset_spearman.csv"))
 
-heatmap_out(cor_mat[order(bulk_group), ], "bulk_vs_subset_correlation",
+heatmap_out(cor_mat[order(bulk_group), ], "Fig4E_bulk_vs_subset_correlation",
             width = 7.5, height = 5,
             cluster_rows = FALSE, cluster_cols = TRUE,
             annotation_row = ann_bulk, annotation_colors = ann_colors,
@@ -302,13 +316,13 @@ vln <- ggplot(score_df, aes(MK_subset, score, fill = MK_subset)) +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
   labs(x = NULL, y = "Module score",
        title = "Bulk MHC signatures scored across Sun et al. subsets")
-gg_out(vln, "signature_scores_violin", width = 9, height = 4.5)
+gg_out(vln, "FigS5E_signature_scores_violin", width = 9, height = 4.5)
 
 if ("umap" %in% Reductions(sc)) {
   fp <- FeaturePlot(sc, features = c("MHCpos_sig1", "MHCneg_sig1"), order = TRUE,
                     min.cutoff = "q05", max.cutoff = "q95") &
     scale_color_viridis_c()
-  gg_out(fp, "signature_scores_umap", width = 10, height = 4.5)
+  gg_out(fp, "FigS5F_signature_scores_umap", width = 10, height = 4.5)
 }
 
 ###############################################################################
@@ -320,7 +334,7 @@ if ("umap" %in% Reductions(sc)) {
 ctrl_cor <- cor(pb_lcpm[hvg, ], pb_subset_lcpm[hvg, ], method = "spearman")
 ann_ctrl <- data.frame(Subset = pb_meta$subset, row.names = rownames(ctrl_cor))
 
-heatmap_out(ctrl_cor[order(pb_meta$subset), ], "mapping_validation_control",
+heatmap_out(ctrl_cor[order(pb_meta$subset), ], "FigS5D_mapping_validation_control",
             width = 6.5, height = 5.5,
             cluster_rows = FALSE, cluster_cols = TRUE,
             annotation_row = ann_ctrl, annotation_colors = ann_colors,
