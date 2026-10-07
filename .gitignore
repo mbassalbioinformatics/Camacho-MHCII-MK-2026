@@ -1,0 +1,14 @@
+# Input data and generated results are not tracked
+data/*
+!data/README.md
+results/
+*.rds
+
+# R session files
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+
+# macOS
+.DS_Store
