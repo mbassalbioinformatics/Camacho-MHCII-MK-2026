@@ -1,6 +1,6 @@
 # Camacho-MHCII-MK-2026
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23202829.svg)](https://doi.org/10.5281/zenodo.23202829)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23202919.svg)](https://doi.org/10.5281/zenodo.23202919)
 
 Analysis code for:
 
@@ -63,7 +63,7 @@ Every script records its own `sessionInfo.txt` in its results folder. The tested
 
 If you use this code, please cite the paper above and the archived code:
 
-> Camacho V, et al. Camacho-MHCII-MK-2026: analysis code for "MHC II-expressing bone marrow megakaryocytes are noncanonical antigen presenting cells and activate CD4+ T cells ex vivo". Zenodo. [doi:10.5281/zenodo.23202829](https://doi.org/10.5281/zenodo.23202829)
+> Camacho V, et al. Camacho-MHCII-MK-2026: analysis code for "MHC II-expressing bone marrow megakaryocytes are noncanonical antigen presenting cells and activate CD4+ T cells ex vivo". Zenodo. [doi:10.5281/zenodo.23202919](https://doi.org/10.5281/zenodo.23202919)
 
 The full author list is in [`CITATION.cff`](CITATION.cff).
 
