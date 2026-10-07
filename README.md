@@ -1,5 +1,7 @@
 # Camacho-MHCII-MK-2026
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23202829.svg)](https://doi.org/10.5281/zenodo.23202829)
+
 Analysis code for:
 
 > Camacho V, Wang KG, Hanč P, Carminita E, Becker IC, Lee DH, Bassal MA, Falchetti M, Maggi J, Barrachina M, von Andrian U, Carrascal M, Gautam D, Weng C, Sankaran VG, Italiano JE, Machlus KR. **MHC II-expressing bone marrow megakaryocytes are noncanonical antigen presenting cells and activate CD4+ T cells ex vivo.** Journal and citation to be added on publication.
@@ -25,6 +27,7 @@ figures/       one folder per figure panel group, each with its own README and s
 data/          input data, not tracked in git (see data/README.md)
 environment/   recorded R session information
 results/       outputs written by the scripts, not tracked in git
+reference_output/  outputs of the tested run, for checking a re-run
 run_all.R      installs any missing packages, then runs every analysis in order
 setup.R        installs the required packages only (optional)
 ```
@@ -38,7 +41,7 @@ cd Camacho-MHCII-MK-2026
 Rscript run_all.R
 ```
 
-`run_all.R` first installs any missing R packages. It then runs the differential expression, because that writes the DE table used by the single-cell integration, followed by the other analyses. Each figure script can also be run on its own from the repository root, and writes to `results/<figure folder>/`.
+`run_all.R` first installs any missing R packages. It then runs the differential expression, because that writes the DE table used by the single-cell integration, followed by the other analyses. Each figure script can also be run on its own from the repository root, and writes to `results/<figure folder>/`. The outputs of the tested run are in [`reference_output/`](reference_output) for comparison.
 
 ## Software
 
@@ -58,7 +61,11 @@ Every script records its own `sessionInfo.txt` in its results folder. The tested
 
 ## Citation
 
-If you use this code, please cite the paper above and the archived release of this repository (see [`CITATION.cff`](CITATION.cff)). The Zenodo DOI will be added here on release.
+If you use this code, please cite the paper above and the archived code:
+
+> Camacho V, et al. Camacho-MHCII-MK-2026: analysis code for "MHC II-expressing bone marrow megakaryocytes are noncanonical antigen presenting cells and activate CD4+ T cells ex vivo". Zenodo. [doi:10.5281/zenodo.23202829](https://doi.org/10.5281/zenodo.23202829)
+
+The full author list is in [`CITATION.cff`](CITATION.cff).
 
 ## License
 

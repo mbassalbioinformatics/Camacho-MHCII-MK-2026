@@ -38,7 +38,8 @@ authors:
     family-names: Italiano
   - given-names: Kellie R.
     family-names: Machlus
-version: 1.0.0
+version: 1.1.0
+doi: 10.5281/zenodo.23202829
 license: MIT
 repository-code: "https://github.com/mbassalbioinformatics/Camacho-MHCII-MK-2026"
 keywords:
@@ -52,4 +53,5 @@ abstract: >-
   Analysis code for the bulk RNA-seq of sorted MHC II+ and MHC II- bone marrow
   megakaryocytes: differential expression, Gene Ontology enrichment,
   transcription factor activity, and integration with the Sun et al. (2021)
-  single-cell megakaryocyte atlas (Fig 4A to 4E and Fig S5A to S5F).
+  single-cell megakaryocyte atlas (Fig 4A to 4E and Fig S5A to S5F), with the
+  reference output of the tested run.
